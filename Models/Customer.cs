@@ -10,15 +10,15 @@ namespace Shop_R_Us.Models
         public int Id { get; set; }
         public string CustomerName { get; set; }
         public string Password { get; set; }
-        public List<int> OrderIds { get; set; }
+        public List<CustomerOrder> CustomerOrders { get; set; }
 
         public Customer() { }
 
-        public Customer(string customerName, string password, List<int> orderIds)
+        public Customer(string customerName, string password, List<CustomerOrder> customerOrders)
         {
             CustomerName = customerName;
             Password = password;
-            OrderIds = orderIds;
+            CustomerOrders = customerOrders;
         }
     }
 }
