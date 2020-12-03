@@ -19,7 +19,6 @@ namespace Shop_R_Us.Controllers
         public IActionResult OrderHome()
         {
             List<Product> products = context.Product.ToList();
-            //ViewBag.products = products;
             return View(products);
         }
     }

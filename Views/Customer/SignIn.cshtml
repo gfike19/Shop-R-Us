@@ -3,5 +3,16 @@
     ViewData["Title"] = "Sign In/Sign Up";
 }
 
-Customer Sign In Here
+@model Shop_R_Us.ViewModels.CustomerSignIn;
 
+<form asp-controller="Customer" asp-action="SignIn" method="post">
+    <div class="form-group">
+        <label asp-for="CustomerName">Username: </label>
+        <input asp-for="CustomerName" class="form-control-sm"/>
+    </div>
+    <div class="form-group">
+        <label asp-for="Password">Password: </label>
+        <input asp-for="Password" class="form-control-sm"/>
+    </div>
+    <input type="submit" value="Submit" class="btn-primary"/>
+</form>
