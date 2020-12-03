@@ -21,7 +21,7 @@ namespace Shop_R_Us.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Products",
+                name: "Product",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)

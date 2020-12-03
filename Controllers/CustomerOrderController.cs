@@ -18,9 +18,9 @@ namespace Shop_R_Us.Controllers
         [HttpGet]
         public IActionResult OrderHome()
         {
-            List<Product> products = context.Products.ToList();
-            ViewBag.products = products;
-            return View();
+            List<Product> products = context.Product.ToList();
+            //ViewBag.products = products;
+            return View(products);
         }
     }
 }

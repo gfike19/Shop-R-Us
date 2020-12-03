@@ -14,7 +14,7 @@ Place order here
 <div>
         @try
         {
-            foreach (Product p in ViewBag.products)
+            foreach (Product p in Model)
             {
                 <ul>
                     <li>@p.ProductName</li>
