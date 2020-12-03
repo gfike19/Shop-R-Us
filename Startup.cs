@@ -50,7 +50,7 @@ namespace Shop_R_Us
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=ShopRus}/{action=ShopRusHome}/{id?}");
             });
         }
     }
