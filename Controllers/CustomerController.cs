@@ -12,7 +12,7 @@ namespace Shop_R_Us.Controllers
 {
     public class CustomerController : Controller
     {
-        
+        [HttpGet]
         public IActionResult SignIn()
         {
             return View();
@@ -21,11 +21,17 @@ namespace Shop_R_Us.Controllers
         [HttpPost]
         public IActionResult SignIn(CustomerSignIn customerSignIn)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 //TODO create login logic
             }
             return Redirect("/CustomerOrder/OrderHome/");
+        }
+
+        [HttpGet]
+        public IActionResult SignUp()
+        {
+            return View();
         }
     }
 }
