@@ -7,11 +7,19 @@ using Shop_R_Us.Data;
 using Shop_R_Us.Models;
 using Shop_R_Us.ViewModels;
 using Microsoft.EntityFrameworkCore;
+using Shop_R_Us.Data;
 
 namespace Shop_R_Us.Controllers
 {
     public class CustomerController : Controller
     {
+        private ShopRusContext context;
+
+        public CustomerController(ShopRusContext shopRusContext)
+        {
+            context = shopRusContext;
+        }
+
         [HttpGet]
         public IActionResult SignIn()
         {
@@ -23,9 +31,10 @@ namespace Shop_R_Us.Controllers
         {
             if (ModelState.IsValid)
             {
-                //TODO create login logic
+                return Redirect("/CustomerOrder/OrderHome/");
             }
-            return Redirect("/CustomerOrder/OrderHome/");
+
+            return View("SignIn", customerSignIn);
         }
 
         [HttpGet]

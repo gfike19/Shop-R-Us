@@ -8,11 +8,13 @@
     <div class="form-group">
         <label asp-for="CustomerName">Username: </label>
         <input asp-for="CustomerName" class="form-control-sm" />
+        <span asp-validation-for="CustomerName"></span>
     </div>
     <div class="form-group">
         <label asp-for="Password">Password: </label>
-        <input asp-for="Password" class="form-control-sm" />
+        <input asp-for="Password" class="form-control-sm" type="password"/>
+        <span asp-validation-for="Password"></span>
     </div>
     <input type="submit" value="Submit" class="btn-primary" />
+    <a asp-controller="Customer" asp-action="SignUp" class="btn-secondary">Sign Up</a>
 </form>
-<a asp-controller="Customer" asp-action="SignUp" class="btn-outline-secondary">Sign Up</a>
