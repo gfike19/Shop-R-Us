@@ -44,9 +44,14 @@ namespace Shop_R_Us.Controllers
         }
 
         [HttpPost]
-        public IActionResult SignUp(Customer customer)
+        public IActionResult SignUp(CustomerSignUp customerSignUp)
         {
-            return Redirect("/CustomerOrder/OrderHome/");
+            if(ModelState.IsValid)
+            {
+
+                return Redirect("/CustomerOrder/OrderHome/");
+            }
+            return View("SignUp", customerSignUp);
         }
     }
 }
