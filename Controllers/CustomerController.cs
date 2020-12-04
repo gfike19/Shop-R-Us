@@ -33,5 +33,11 @@ namespace Shop_R_Us.Controllers
         {
             return View();
         }
+
+        [HttpPost]
+        public IActionResult SignUp(Customer customer)
+        {
+            return Redirect("/CustomerOrder/OrderHome/");
+        }
     }
 }

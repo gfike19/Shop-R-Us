@@ -9,9 +9,9 @@ namespace Shop_R_Us.ViewModels
     public class CustomerSignIn
     {
         [Required(ErrorMessage ="Username is required")]
-        public string CustomerName;
+        public string CustomerName { get; set; }
         [Required(ErrorMessage ="Password is required")]
-        public string Password;
+        public string Password { get; set; }
 
         public CustomerSignIn() { }
     }
