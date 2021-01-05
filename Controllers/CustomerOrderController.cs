@@ -18,8 +18,13 @@ namespace Shop_R_Us.Controllers
         [HttpGet]
         public IActionResult OrderHome()
         {
-            List<Product> products = context.Product.ToList();
-            return View(products);
+            if (User.Identity.IsAuthenticated)
+            {
+                List<Product> products = context.Product.ToList();
+                return View(products);
+            }
+
+            return View("/Customer/SignIn");
         }
     }
 }

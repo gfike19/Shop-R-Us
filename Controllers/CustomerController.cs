@@ -1,14 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Shop_R_Us.Data;
 using Shop_R_Us.Models;
 using Shop_R_Us.ViewModels;
-using Microsoft.EntityFrameworkCore;
-using Shop_R_Us.Data;
-using System.Web;
 using System.Web.Helpers;
 
 namespace Shop_R_Us.Controllers
@@ -48,6 +43,7 @@ namespace Shop_R_Us.Controllers
 
                 if(verifiedPwd)
                 {
+                    bool signedIn = User.Identity.IsAuthenticated;
                     return Redirect("/CustomerOrder/OrderHome/");
                 }
                 return View("SignIn", customerSignIn);
@@ -80,6 +76,7 @@ namespace Shop_R_Us.Controllers
                 Customer customer = new Customer(customerSignUp.Username, hashPwd, custOrder);
                 context.Customers.Add(customer);
                 context.SaveChanges();
+                bool signedIn = User.Identity.IsAuthenticated;
                 return Redirect("/CustomerOrder/OrderHome/");
             }
             return View("SignUp", customerSignUp);
