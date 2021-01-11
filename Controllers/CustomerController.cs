@@ -77,6 +77,7 @@ namespace Shop_R_Us.Controllers
                 context.Customers.Add(customer);
                 context.SaveChanges();
                 bool signedIn = User.Identity.IsAuthenticated;
+                
                 return Redirect("/CustomerOrder/OrderHome/");
             }
             return View("SignUp", customerSignUp);
