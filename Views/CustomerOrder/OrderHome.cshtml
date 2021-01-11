@@ -2,31 +2,40 @@
     ViewData["Title"] = "Order";
 }
 @model List<Shop_R_Us.Models.Product>
-Place order here
-
 @{
     //TODO add items from db to cart
     //TODO remove items from cart
     //TODO simulate checkout process
 }
-
-    <div class="panel panel-info">
+@*TODO need to fix messages being displayed correctly on sign in page*@
+@*<div class="panel panel-info">
         <div class="panel-body">@ViewBag.msg</div>
-    </div>
+    </div>*@
 
-<div>
-    @try
-    {
-        foreach (Product p in Model)
-        {
-            <ul>
-                <li>@p.ProductName</li>
-            </ul>
-        }
-    }
-    catch (Exception e)
-    {
-        @e
-    }
+<div class="container">
+    <form asp-action="addToCart" method="post">
+        <select name="allProducts" id="allProducts">
+            @try
+            {
+                foreach (Product p in Model)
+                {
 
+                    <option name="currentProduct" id="currentProduct" value="@p.Id">@p.ProductName</option>
+
+                }
+            }
+            catch (Exception e)
+            {
+                @e
+            }
+        </select>
+        <input type="submit" value="Add Product to Cart" id="addToCart" name="addToCart" class="btn-primary"/>
+    </form>
+</div>
+<div class="container">
+    <form asp-action="delFromCart" method="post">
+        <select name="cart" id="cart">
+
+        </select>
+    </form>
 </div>

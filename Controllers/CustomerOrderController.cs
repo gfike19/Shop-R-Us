@@ -27,5 +27,13 @@ namespace Shop_R_Us.Controllers
             List<Product> products = context.Product.ToList();
             return View(products);
         }
+
+        [HttpPost]
+        public IActionResult addToCart()
+        {
+            Product p = context.Product.Find(HttpContext.Request.Form["currentProduct"]);
+            Console.Write(p.ProductName);
+            return View("/Cart/ViewCart");
+        }
     }
 }
