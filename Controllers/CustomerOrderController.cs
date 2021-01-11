@@ -18,6 +18,12 @@ namespace Shop_R_Us.Controllers
         [HttpGet]
         public IActionResult OrderHome()
         {
+            if(HttpContext.Request.Cookies["signedIn"] == null)
+            {
+                string msg = "Must be signed in to place an order";
+                ViewBag.msg = msg;
+                return Redirect("/Customer/SignIn");
+            }
             List<Product> products = context.Product.ToList();
             return View(products);
         }

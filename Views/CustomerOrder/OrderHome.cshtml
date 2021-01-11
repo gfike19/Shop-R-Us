@@ -5,24 +5,28 @@
 Place order here
 
 @{
-//TODO add items from db to cart
-//TODO remove items from cart
-//TODO simulate checkout process
-
+    //TODO add items from db to cart
+    //TODO remove items from cart
+    //TODO simulate checkout process
 }
 
+    <div class="panel panel-info">
+        <div class="panel-body">@ViewBag.msg</div>
+    </div>
+
 <div>
-        @try
+    @try
+    {
+        foreach (Product p in Model)
         {
-            foreach (Product p in Model)
-            {
-                <ul>
-                    <li>@p.ProductName</li>
-                </ul>             
-            }
-        } catch(Exception e)
-        {
-            @e
+            <ul>
+                <li>@p.ProductName</li>
+            </ul>
         }
+    }
+    catch (Exception e)
+    {
+        @e
+    }
 
 </div>

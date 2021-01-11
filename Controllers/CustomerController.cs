@@ -26,6 +26,11 @@ namespace Shop_R_Us.Controllers
         [HttpGet]
         public IActionResult SignIn()
         {
+            if (HttpContext.Request.Cookies["signedIn"] != null && HttpContext.Request.Cookies["signedIn"].Equals("true"))
+            {
+                string msg = "You are already signed in!";
+                ViewBag.msg = msg;
+            }
             return View();
         }
 
@@ -34,23 +39,23 @@ namespace Shop_R_Us.Controllers
         {
             if (ModelState.IsValid)
             {
-                Customer dbCustomer = null;
                 customers = context.Customers.ToList();
-                foreach(Customer customer in customers)
+                foreach (Customer customer in customers)
                 {
-                    if(customer.CustomerName.Equals(customerSignIn.CustomerName))
+                    if (customer.CustomerName.Equals(customerSignIn.CustomerName))
                     {
-                        dbCustomer = customer;
+                        Customer dbCustomer = customer;
+                        bool verifiedPwd = Crypto.VerifyHashedPassword(dbCustomer.Password, customerSignIn.Password);
+
+                        if (verifiedPwd == true)
+                        {
+                            HttpContext.Response.Cookies.Append("custId", dbCustomer.Id.ToString());
+                            HttpContext.Response.Cookies.Append("signedIn", "true");
+                            return Redirect("/CustomerOrder/OrderHome/");
+                        }
                     }
                 }
 
-                bool verifiedPwd = Crypto.VerifyHashedPassword(dbCustomer.Password, customerSignIn.Password);
-
-                if(verifiedPwd)
-                {
-                    return Redirect("/CustomerOrder/OrderHome/");
-                }
-                return View("SignIn", customerSignIn);
             }
 
             return View("SignIn", customerSignIn);
@@ -80,11 +85,13 @@ namespace Shop_R_Us.Controllers
                 Customer customer = new Customer(customerSignUp.Username, hashPwd, custOrder);
                 context.Customers.Add(customer);
                 context.SaveChanges();
+                HttpContext.Response.Cookies.Append("custId", customer.Id.ToString());
+                HttpContext.Response.Cookies.Append("signedIn", "true");
                 return Redirect("/CustomerOrder/OrderHome/");
             }
             return View("SignUp", customerSignUp);
         }
-        
+
 
     }
 }
