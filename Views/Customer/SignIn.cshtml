@@ -4,16 +4,6 @@
 
 @model Shop_R_Us.ViewModels.CustomerSignIn;
 
-@{
-
-    if(signedIn != true)
-    {
-        <div class="container">
-            <span>You need to be signed in to place an order</span>
-        </div>
-    }
-}
-
 <form asp-controller="Customer" asp-action="SignIn" method="post">
     <div class="form-group">
         <label asp-for="CustomerName">Username: </label>
