@@ -14,14 +14,15 @@
 
 <div class="container">
     <form asp-action="addToCart" method="post">
-        <select name="allProducts" id="allProducts">
+        <select name="currentProd" id="currentProd">
             @try
             {
                 foreach (Product p in Model)
                 {
 
-                    <option name="currentProduct" id="currentProduct" value="@p.Id">@p.ProductName</option>
-
+                    <option name="currentProduct" id="currentProduct" value="@p.Id">
+                        @p.ProductName
+                    </option>
                 }
             }
             catch (Exception e)

@@ -29,11 +29,12 @@ namespace Shop_R_Us.Controllers
         }
 
         [HttpPost]
-        public IActionResult addToCart()
+        public IActionResult addToCart(int currentProd)
         {
-            Product p = context.Product.Find(HttpContext.Request.Form["currentProduct"]);
-            Console.Write(p.ProductName);
-            return View("/Cart/ViewCart");
+            Product p = context.Product.Find(currentProd);
+            List<Product> newOrder = new List<Product>();
+            newOrder.Add(p);
+            return View("OrderHome");
         }
     }
 }
