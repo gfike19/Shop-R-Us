@@ -1,7 +1,10 @@
 ﻿@{
     ViewData["Title"] = "Order";
 }
-@model List<Shop_R_Us.Models.Product>
+@*@model List<Shop_R_Us.Models.Product>*@
+
+@model dynamic 
+
 @{
     //TODO add items from db to cart
     //TODO remove items from cart
@@ -17,7 +20,7 @@
         <select name="currentProd" id="currentProd">
             @try
             {
-                foreach (Product p in Model)
+                foreach (Product p in Model.currentProd)
                 {
 
                     <option name="currentProduct" id="currentProduct" value="@p.Id">
@@ -30,13 +33,12 @@
                 @e
             }
         </select>
-        <input type="submit" value="Add Product to Cart" id="addToCart" name="addToCart" class="btn-primary"/>
+        <input type="submit" value="Add Product to Cart" id="addToCart" name="addToCart" class="btn-primary" />
     </form>
 </div>
 <div class="container">
     <form asp-action="delFromCart" method="post">
         <select name="cart" id="cart">
-
         </select>
     </form>
 </div>
