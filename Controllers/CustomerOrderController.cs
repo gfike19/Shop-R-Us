@@ -29,13 +29,8 @@ namespace Shop_R_Us.Controllers
             List<Product> products = context.Product.ToList();
             dynamic model = new ExpandoObject();
             model.currentProd = products;
-            CustomerOrder co = new CustomerOrder();
-            Microsoft.AspNetCore.Http.CookieOptions options = new Microsoft.AspNetCore.Http.CookieOptions
-            {
-                Secure = true,
-                SameSite = Microsoft.AspNetCore.Http.SameSiteMode.Strict
-            };
-            //Response.Cookies.Append("cart", co, options);
+            List<Product> newOrder = HttpContext.Session.GetObject<List<Product>>("newOrder") ?? new List<Product>();
+            model.newOrder = newOrder;
             return View(model);
         }
 
@@ -45,6 +40,7 @@ namespace Shop_R_Us.Controllers
             Product p = context.Product.Find(currentProd);
             List<Product> newOrder = new List<Product>();
             newOrder.Add(p);
+            HttpContext.Session.SetObject("newOrder", newOrder);
             return View("OrderHome");
         }
     }

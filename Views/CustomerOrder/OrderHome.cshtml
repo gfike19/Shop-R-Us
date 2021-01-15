@@ -39,6 +39,12 @@
 <div class="container">
     <form asp-action="delFromCart" method="post">
         <select name="cart" id="cart">
+            @foreach (Product q in Model.newOrder)
+            {
+                <option name="cart" id="currentProduct" value="@q.Id">
+                    @q.ProductName
+                </option>
+            }
         </select>
     </form>
 </div>
