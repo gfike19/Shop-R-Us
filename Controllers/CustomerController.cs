@@ -1,14 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Shop_R_Us.Data;
 using Shop_R_Us.Models;
 using Shop_R_Us.ViewModels;
-using Microsoft.EntityFrameworkCore;
-using Shop_R_Us.Data;
-using System.Web;
 using System.Web.Helpers;
 
 namespace Shop_R_Us.Controllers
@@ -26,11 +21,6 @@ namespace Shop_R_Us.Controllers
         [HttpGet]
         public IActionResult SignIn()
         {
-            if (HttpContext.Request.Cookies["signedIn"] != null && HttpContext.Request.Cookies["signedIn"].Equals("true"))
-            {
-                string msg = "You are already signed in!";
-                ViewBag.msg = msg;
-            }
             return View();
         }
 
