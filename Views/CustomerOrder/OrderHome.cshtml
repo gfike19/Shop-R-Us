@@ -13,19 +13,25 @@
         <div class="panel-body">Message to go here</div>
     </div>*@
 
-<div>
-    @try
+<div class="container">
+    <form method="post">
+        <select id="currentProduct" name="currentProduct">
+            @foreach (Product p in Model)
+            {
+            <option value="@p.Id">
+                @p.ProductName
+            </option>
+            }
+        </select>
+        <input type="submit" value="Add to Cart" class="btn-primary" id="addToCartBttn" name="addToCartBttn"/>
+    </form>
+    @*@try
     {
-        foreach (Product p in Model)
-        {
-            <ul>
-                <li>@p.ProductName</li>
-            </ul>
-        }
+        
     }
     catch (Exception e)
     {
         @e
-    }
+    }*@
 
 </div>

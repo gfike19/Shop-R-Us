@@ -25,5 +25,12 @@ namespace Shop_R_Us.Controllers
             List<Product> products = context.Product.ToList();
             return View(products);
         }
+
+        [HttpPost]
+        public IActionResult OrderHome(int currentProduct)
+        {
+            return Content(currentProduct + "");
+        }
+
     }
 }
