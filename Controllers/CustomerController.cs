@@ -5,6 +5,7 @@ using Shop_R_Us.Data;
 using Shop_R_Us.Models;
 using Shop_R_Us.ViewModels;
 using System.Web.Helpers;
+using System;
 
 namespace Shop_R_Us.Controllers
 {
@@ -21,6 +22,10 @@ namespace Shop_R_Us.Controllers
         [HttpGet]
         public IActionResult SignIn()
         {
+            if(TempData["msg"].ToString().Length > 0)
+            {
+                ViewBag.Msg = TempData["msg"].ToString();
+            }
             return View();
         }
 
@@ -39,8 +44,8 @@ namespace Shop_R_Us.Controllers
 
                         if (verifiedPwd == true)
                         {
-                            HttpContext.Response.Cookies.Append("custId", dbCustomer.Id.ToString());
-                            HttpContext.Response.Cookies.Append("signedIn", "true");
+                            HttpContext.Session.SetObject("customerId", dbCustomer.Id);
+                            ViewBag.cust = HttpContext.Session.GetObject<int>("customerId");
                             return Redirect("/CustomerOrder/OrderHome/");
                         }
                     }
@@ -75,8 +80,8 @@ namespace Shop_R_Us.Controllers
                 Customer customer = new Customer(customerSignUp.Username, hashPwd, custOrder);
                 context.Customers.Add(customer);
                 context.SaveChanges();
-                HttpContext.Response.Cookies.Append("custId", customer.Id.ToString());
-                HttpContext.Response.Cookies.Append("signedIn", "true");
+                HttpContext.Session.SetObject("customerId", customer.Id);
+                ViewBag.cust = HttpContext.Session.GetObject<int>("customerId");
                 return Redirect("/CustomerOrder/OrderHome/");
             }
             return View("SignUp", customerSignUp);

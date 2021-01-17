@@ -4,12 +4,7 @@
 
 @model Shop_R_Us.ViewModels.CustomerSignIn;
 
-@if (ViewBag.msg != "")
-{
-    <div class="panel panel-info">
-        <div class="panel-body">@ViewBag.msg</div>
-    </div>
-}
+@ViewBag.Msg
 
 <form asp-controller="Customer" asp-action="SignIn" method="post">
     <div class="form-group">
