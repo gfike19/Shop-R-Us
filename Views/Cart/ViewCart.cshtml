@@ -1,10 +1,26 @@
 ﻿@{
-    ViewData["Title"] = "Shop R Us";
+    ViewData["Title"] = "Cart";
 }
 
 View cart items here
 
 @{ 
-    //TODO cart doesn't change after signing out or closing the application
-    //TODO show cart subtotal and total
+//TODO cart doesn't change after signing out or closing the application
+//TODO show cart subtotal and total
+// TODO unsigned in users can create cart but can't checkout
+//TODO remove items from cart
+//TODO simulate checkout process
 }
+
+<div class="container">
+    <ul>
+        @{
+            List<Product> cart = ViewBag.Cart;
+            foreach (Product p in cart)
+            {
+                <li>@p.ProductName</li>
+            }
+        }
+    </ul>
+    
+</div>

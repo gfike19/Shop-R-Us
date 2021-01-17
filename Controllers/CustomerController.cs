@@ -22,9 +22,14 @@ namespace Shop_R_Us.Controllers
         [HttpGet]
         public IActionResult SignIn()
         {
-            if(TempData["msg"].ToString().Length > 0)
+            //if(TempData["msg"].ToString().Length > 0)
+            //{
+            //    ViewBag.Msg = TempData["msg"].ToString();
+            //}
+            if(HttpContext.Session.GetObject<object>("customerId") != null)
             {
-                ViewBag.Msg = TempData["msg"].ToString();
+                TempData["msg"] = "You are already signed in!";
+                return Redirect("/CustomerOrder/OrderHome/");
             }
             return View();
         }
@@ -45,7 +50,6 @@ namespace Shop_R_Us.Controllers
                         if (verifiedPwd == true)
                         {
                             HttpContext.Session.SetObject("customerId", dbCustomer.Id);
-                            ViewBag.cust = HttpContext.Session.GetObject<int>("customerId");
                             return Redirect("/CustomerOrder/OrderHome/");
                         }
                     }

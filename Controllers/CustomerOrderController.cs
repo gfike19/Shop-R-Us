@@ -13,14 +13,13 @@ namespace Shop_R_Us.Controllers
         {
             context = shopRusContext;
         }
+
         [HttpGet]
         public IActionResult OrderHome()
         {
-            if(HttpContext.Request.Cookies["signedIn"] == null)
+            if(TempData["msg"] != null)
             {
-                string msg = "Must be signed in to place an order";
-                ViewBag.msg = msg;
-                return Redirect("/Customer/SignIn");
+                ViewBag.Msg = TempData["msg"].ToString();
             }
             List<Product> products = context.Product.ToList();
             return View(products);
@@ -29,7 +28,11 @@ namespace Shop_R_Us.Controllers
         [HttpPost]
         public IActionResult OrderHome(int currentProduct)
         {
-            return Content(currentProduct + "");
+            Product p = context.Product.Find(currentProduct);
+            List<Product> cart = HttpContext.Session.GetObject<List<Product>>("cart") ?? new List<Product>();
+            cart.Add(p);
+            HttpContext.Session.SetObject("cart", cart);
+            return Redirect("/Cart/ViewCart/");
         }
 
     }

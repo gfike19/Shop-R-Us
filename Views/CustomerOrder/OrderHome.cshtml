@@ -4,34 +4,24 @@
 @model List<Shop_R_Us.Models.Product>
 
 @{
-    //TODO add items from db to cart
-    //TODO remove items from cart
-    //TODO simulate checkout process
+    //TODO convert select to datalist
 }
 
-    @*<div class="panel panel-info">
-        <div class="panel-body">Message to go here</div>
-    </div>*@
+
+<div class="panel panel-danger">
+    <div class="panel-body">@ViewBag.Msg</div>
+</div>
 
 <div class="container">
     <form method="post">
-        <select id="currentProduct" name="currentProduct">
+        <select id="currentProduct" name="currentProduct" placeholder="=Select-">
             @foreach (Product p in Model)
             {
-            <option value="@p.Id">
-                @p.ProductName
-            </option>
+                <option value="@p.Id">
+                    @p.ProductName
+                </option>
             }
         </select>
-        <input type="submit" value="Add to Cart" class="btn-primary" id="addToCartBttn" name="addToCartBttn"/>
+        <input type="submit" value="Add to Cart" class="btn-primary" id="addToCartBttn" name="addToCartBttn" />
     </form>
-    @*@try
-    {
-        
-    }
-    catch (Exception e)
-    {
-        @e
-    }*@
-
 </div>
