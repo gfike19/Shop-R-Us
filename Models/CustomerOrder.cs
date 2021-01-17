@@ -24,5 +24,25 @@ namespace Shop_R_Us.Models
             LowTaxTotal = lowTaxTotal;
             TaxTotal = taxTotal;
         }
+
+        public void AddItems(List<Product> cart)
+        {
+            foreach(Product p in cart)
+            {
+                SubOrderTotal +=(float) p.Price;
+                if(p.Fs)
+                {
+                    double lt = .01 *(double) p.Price;
+                    LowTaxTotal += (float)lt;
+                } else
+                {
+                    double ht = .04 * (double)p.Price;
+                    HighTaxTotal += (float)ht;
+                }
+            }
+
+            TaxTotal += (LowTaxTotal + HighTaxTotal);
+            OrderTotal += (SubOrderTotal + TaxTotal);
+        }
     }
 }

@@ -3,29 +3,39 @@
 }
 
 @{
-    //TODO cart doesn't change after signing out or closing the application
-    //TODO show cart subtotal and total
-    // TODO unsigned in users can create cart but can't checkout
-    //TODO remove items from cart
-    //TODO simulate checkout process
-    //TODO show quantities of products and eliminate duplication of names
+    //TODO #5 show cart subtotal and total
+    // TODO #6 unsigned in users can create cart but can't checkout
+    //TODO #4 remove items from cart
+    //TODO #7 simulate checkout process
+    //TODO #8 show quantities of products and eliminate duplication of names
 }
 
 <div class="container">
-    <ul>
-        @{
-            List<Product> cart = ViewBag.Cart;
-            if (cart != null)
-            {
-                foreach (Product p in cart)
+    <form asp-action="RemoveItemFromCart" method="post">
+        <ul style="list-style-type:none;">
+            @{
+                List<Product> cart = ViewBag.Cart;
+                if (cart != null)
                 {
-                    <li>@p.ProductName</li>
+                    foreach (Product p in cart)
+                    {
+                        <div class="checkbox">
+                            <li>
+                                <input type="checkbox" id="markedItem" name="markedItem" value="@p.Id" />
+                                @p.ProductName
+                            </li>
+                        </div>
+                    }
                 }
-            } else
-            {
-               <span>No items in cart!</span>
+                else
+                {
+                    <span>No items in cart!</span>
+                }
             }
-        }
-    </ul>
-
+        </ul>
+        <input type="submit" id="RemoveItems" name="RemoveItems" value="Remove Item/s" class="btn-outline-primary" />
+    </form>
+    <form asp-action="Checkout" method="post">
+        <input type="submit" id="Checkout" name="Checkout" value="Checkout" class="btn-primary" />
+    </form>
 </div>

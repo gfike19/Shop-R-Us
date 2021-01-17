@@ -32,6 +32,7 @@ namespace Shop_R_Us.Controllers
             List<Product> cart = HttpContext.Session.GetObject<List<Product>>("cart") ?? new List<Product>();
             cart.Add(p);
             HttpContext.Session.SetObject("cart", cart);
+            // TODO #1 add new customer order to session and add item to cart, add functionality to update cart
             return Redirect("/Cart/ViewCart/");
         }
 
