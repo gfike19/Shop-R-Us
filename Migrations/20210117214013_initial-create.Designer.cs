@@ -10,8 +10,8 @@ using Shop_R_Us.Data;
 namespace Shop_R_Us.Migrations
 {
     [DbContext(typeof(ShopRusContext))]
-    [Migration("20210117211426_Products2Product")]
-    partial class Products2Product
+    [Migration("20210117214013_initial-create")]
+    partial class initialcreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -87,7 +87,7 @@ namespace Shop_R_Us.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Product");
+                    b.ToTable("Products");
                 });
 
             modelBuilder.Entity("Shop_R_Us.Models.CustomerOrder", b =>

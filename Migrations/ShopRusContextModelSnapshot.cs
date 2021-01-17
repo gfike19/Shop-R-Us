@@ -85,7 +85,7 @@ namespace Shop_R_Us.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Product");
+                    b.ToTable("Products");
                 });
 
             modelBuilder.Entity("Shop_R_Us.Models.CustomerOrder", b =>

@@ -21,14 +21,14 @@ namespace Shop_R_Us.Controllers
             {
                 ViewBag.Msg = TempData["msg"].ToString();
             }
-            List<Product> products = context.Product.ToList();
+            List<Product> products = context.Products.ToList();
             return View(products);
         }
 
         [HttpPost]
         public IActionResult OrderHome(int currentProduct)
         {
-            Product p = context.Product.Find(currentProduct);
+            Product p = context.Products.Find(currentProduct);
             List<Product> cart = HttpContext.Session.GetObject<List<Product>>("cart") ?? new List<Product>();
             cart.Add(p);
             HttpContext.Session.SetObject("cart", cart);
