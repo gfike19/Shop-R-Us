@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Shop_R_Us.Data;
 
 namespace Shop_R_Us.Migrations
 {
     [DbContext(typeof(ShopRusContext))]
-    partial class ShopRusContextModelSnapshot : ModelSnapshot
+    [Migration("20210117211426_Products2Product")]
+    partial class Products2Product
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
