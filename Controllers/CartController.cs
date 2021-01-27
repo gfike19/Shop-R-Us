@@ -7,22 +7,54 @@ namespace Shop_R_Us.Controllers
 {
     public class CartController : Controller
     { //TODO #3 add ability to save cart closing app, cookies?
+
+        private ShopRusContext context;
+        public CartController(ShopRusContext shopRusContext)
+        {
+            context = shopRusContext;
+        }
+
         public IActionResult ViewCart()
         {
-            List<Product> cart = HttpContext.Session.GetObject<List<Product>>("cart") ?? new List<Product>(); ;
+            CustomerOrder cart = HttpContext.Session.GetObject<CustomerOrder>("cart");
 
-            if (cart.Count > 0)
+            if (cart != null)
             {
                 ViewBag.Cart = cart;
+            }
+
+            if (TempData["msg"] != null)
+            {
+                string msg = (string)TempData["msg"];
+                ViewBag.Msg = msg;
             }
 
             return View();
         }
 
-        //[HttpPost]
-        //public IActionResult RemoveItemFromCart(List<int> markedItem)
-        //{
-            //TODO #2 add functionality to remove items from cart, update properties of order
-        //}
+        [HttpPost]
+        public IActionResult RemoveItemFromCart(List<int> markedItem)
+        {
+            if (markedItem.Count == 0)
+            {
+                TempData["msg"] = "No item selected!";
+                return Redirect("/Cart/ViewCart");
+            }
+
+            CustomerOrder cart = HttpContext.Session.GetObject<CustomerOrder>("cart");
+            //HttpContext.Session.Remove("cart");
+
+            foreach (int i in markedItem)
+            {
+                Product p = context.Products.Find(i);
+                cart.RemoveItems(p);
+            }
+
+            ViewData.Clear();
+            HttpContext.Session.SetObject("cart", cart);
+
+            //return Redirect("/Cart/ViewCart");
+            return View("ViewCart");
+        }
     }
 }

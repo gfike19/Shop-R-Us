@@ -17,7 +17,7 @@ namespace Shop_R_Us.Controllers
         [HttpGet]
         public IActionResult OrderHome()
         {
-            if(TempData["msg"] != null)
+            if (TempData["msg"] != null)
             {
                 ViewBag.Msg = TempData["msg"].ToString();
             }
@@ -29,8 +29,18 @@ namespace Shop_R_Us.Controllers
         public IActionResult OrderHome(int currentProduct)
         {
             Product p = context.Products.Find(currentProduct);
-            List<Product> cart = HttpContext.Session.GetObject<List<Product>>("cart") ?? new List<Product>();
-            cart.Add(p);
+            CustomerOrder cart = HttpContext.Session.GetObject<CustomerOrder>("cart");
+
+            if (cart == null)
+            {
+                cart = new CustomerOrder(p);
+            }
+            else
+            {
+                cart.AddItems(p);
+            }
+
+            HttpContext.Session.Remove("cart");
             HttpContext.Session.SetObject("cart", cart);
             // TODO #1 add new customer order to session and add item to cart, add functionality to update cart
             return Redirect("/Cart/ViewCart/");

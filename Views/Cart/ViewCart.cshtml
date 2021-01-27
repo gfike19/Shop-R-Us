@@ -12,25 +12,42 @@
 
 <div class="container">
     <form asp-action="RemoveItemFromCart" method="post">
+
+        <span>@ViewBag.Msg</span>
         <ul style="list-style-type:none;">
             @{
-                List<Product> cart = ViewBag.Cart;
-                if (cart != null)
+                CustomerOrder cart = ViewBag.Cart;
+
+                if (cart != null && cart.OrderProducts.Count > 0)
                 {
-                    foreach (Product p in cart)
+                    string dispSubtotal = "$" + cart.SubOrderTotal;
+                    string dispTaxTotal = "$" + cart.TaxTotal;
+                    string dispTotal = "$" + cart.OrderTotal;
+
+                    if (cart.OrderProducts.Count > 0)
                     {
-                        <div class="checkbox">
-                            <li>
-                                <input type="checkbox" id="markedItem" name="markedItem" value="@p.Id" />
-                                @p.ProductName
-                            </li>
-                        </div>
+                        foreach (Product p in cart.OrderProducts)
+                        {
+                            string dispInfo = p.ProductName + " $" + p.Price;
+                            <div class="checkbox">
+                                <li>
+                                    <input type="checkbox" id="markedItem" name="markedItem" value="@p.Id" />
+                                    @dispInfo
+                                </li>
+                            </div>
+                        }
                     }
+
+                    <hr />
+                    <li><b>Subtotal: </b>@dispSubtotal</li>
+                    <li><b>Tax: </b>@dispTaxTotal</li>
+                    <li><b>Order Total: </b>@dispTotal</li>
                 }
                 else
                 {
                     <span>No items in cart!</span>
                 }
+
             }
         </ul>
         <input type="submit" id="RemoveItems" name="RemoveItems" value="Remove Item/s" class="btn-outline-primary" />
