@@ -1,0 +1,43 @@
+﻿@{
+    ViewData["Title"] = "Order";
+}
+
+<div>
+    <form asp-action="Checkout" method="post">
+        <ul style="list-style-type:none;">
+            @{CustomerOrder cart = ViewBag.Cart;
+                string dispSubtotal = "$" + cart.SubOrderTotal;
+                string dispTaxTotal = "$" + cart.TaxTotal;
+                string dispTotal = "$" + cart.OrderTotal;
+                if (cart != null && cart.OrderProducts.Count > 0)
+                {
+                    foreach (Product p in cart.OrderProducts)
+                    {
+                        string dispInfo = p.ProductName + " $" + p.Price;
+                        <li>
+                            @dispInfo
+                        </li>
+                    }
+                }
+            }
+
+            <hr />
+            <li><b>Subtotal: </b>@dispSubtotal</li>
+            <li><b>Tax: </b>@dispTaxTotal</li>
+            <li><b>Order Total: </b>@dispTotal</li>
+        </ul>
+        <div class="form-group">
+            <label htmlfor="fName">First Name: </label>
+            <input type="text" id="fName" name="fName" required/>
+        </div>
+        <div class="form-group">
+            <label htmlfor="lName">Last Name: </label>
+            <input type="text" id="lName" name="lName" required/>
+        </div>
+        <div class="form-group">
+            <label htmlfor="ccnum">Credit Card Number: </label>
+            <input type="number" id="ccnum" name="ccnum"  min="16" max="16"/>
+        </div>
+        <input type="submit" />
+    </form>
+</div>
