@@ -1,19 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Shop_R_Us.Models
 {
     public class CustomerOrder
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
         public float OrderTotal { get; set; }
         public float SubOrderTotal { get; set; }
         public float HighTaxTotal { get; set; }
         public float LowTaxTotal { get; set; }
         public float TaxTotal { get; set; }
         public List<Product> OrderProducts { get; set; }
+        public DateTime CreatedDateUtc { get; set; }
 
         public CustomerOrder() { }
 

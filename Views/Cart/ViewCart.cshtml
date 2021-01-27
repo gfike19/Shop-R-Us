@@ -51,7 +51,7 @@
         </ul>
         <input type="submit" id="RemoveItems" name="RemoveItems" value="Remove Item/s" class="btn-outline-primary" />
     </form>
-    <form asp-action="Checkout" method="post">
+    <form asp-controller="CustomerOrder" asp-action="Checkout" method="get">
         <input type="submit" id="Checkout" name="Checkout" value="Checkout" class="btn-primary" />
     </form>
 </div>

@@ -1,8 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Shop_R_Us.Migrations
 {
-    public partial class initialcreate : Migration
+    public partial class redoDbs : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -21,30 +22,17 @@ namespace Shop_R_Us.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Products",
+                name: "CustomerOrders",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ProductName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Fs = table.Column<bool>(type: "bit", nullable: false),
-                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Products", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "CustomerOrders",
-                columns: table => new
-                {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     OrderTotal = table.Column<float>(type: "real", nullable: false),
                     SubOrderTotal = table.Column<float>(type: "real", nullable: false),
                     HighTaxTotal = table.Column<float>(type: "real", nullable: false),
                     LowTaxTotal = table.Column<float>(type: "real", nullable: false),
                     TaxTotal = table.Column<float>(type: "real", nullable: false),
+                    CreatedDateUtc = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CustomerId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
@@ -58,19 +46,46 @@ namespace Shop_R_Us.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Products",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ProductName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Fs = table.Column<bool>(type: "bit", nullable: false),
+                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    CustomerOrderId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Products", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Products_CustomerOrders_CustomerOrderId",
+                        column: x => x.CustomerOrderId,
+                        principalTable: "CustomerOrders",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_CustomerOrders_CustomerId",
                 table: "CustomerOrders",
                 column: "CustomerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Products_CustomerOrderId",
+                table: "Products",
+                column: "CustomerOrderId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "CustomerOrders");
+                name: "Products");
 
             migrationBuilder.DropTable(
-                name: "Products");
+                name: "CustomerOrders");
 
             migrationBuilder.DropTable(
                 name: "Customers");

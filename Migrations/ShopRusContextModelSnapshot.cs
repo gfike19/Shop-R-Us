@@ -39,8 +39,13 @@ namespace Shop_R_Us.Migrations
 
             modelBuilder.Entity("Shop_R_Us.Models.CustomerOrder", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<DateTime>("CreatedDateUtc")
+                        .HasColumnType("datetime2");
 
                     b.Property<int?>("CustomerId")
                         .HasColumnType("int");
@@ -74,8 +79,8 @@ namespace Shop_R_Us.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<string>("CustomerOrderId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int?>("CustomerOrderId")
+                        .HasColumnType("int");
 
                     b.Property<bool>("Fs")
                         .HasColumnType("bit");

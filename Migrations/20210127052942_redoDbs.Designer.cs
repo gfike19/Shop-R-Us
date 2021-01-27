@@ -10,8 +10,8 @@ using Shop_R_Us.Data;
 namespace Shop_R_Us.Migrations
 {
     [DbContext(typeof(ShopRusContext))]
-    [Migration("20210117214013_initial-create")]
-    partial class initialcreate
+    [Migration("20210127052942_redoDbs")]
+    partial class redoDbs
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -41,8 +41,14 @@ namespace Shop_R_Us.Migrations
 
             modelBuilder.Entity("Shop_R_Us.Models.CustomerOrder", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<DateTime>("CreatedDateUtc")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("datetime2");
 
                     b.Property<int?>("CustomerId")
                         .HasColumnType("int");
@@ -76,6 +82,9 @@ namespace Shop_R_Us.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
+                    b.Property<int?>("CustomerOrderId")
+                        .HasColumnType("int");
+
                     b.Property<bool>("Fs")
                         .HasColumnType("bit");
 
@@ -87,6 +96,8 @@ namespace Shop_R_Us.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CustomerOrderId");
+
                     b.ToTable("Products");
                 });
 
@@ -97,9 +108,21 @@ namespace Shop_R_Us.Migrations
                         .HasForeignKey("CustomerId");
                 });
 
+            modelBuilder.Entity("Shop_R_Us.Models.Product", b =>
+                {
+                    b.HasOne("Shop_R_Us.Models.CustomerOrder", null)
+                        .WithMany("OrderProducts")
+                        .HasForeignKey("CustomerOrderId");
+                });
+
             modelBuilder.Entity("Shop_R_Us.Models.Customer", b =>
                 {
                     b.Navigation("CustomerOrders");
+                });
+
+            modelBuilder.Entity("Shop_R_Us.Models.CustomerOrder", b =>
+                {
+                    b.Navigation("OrderProducts");
                 });
 #pragma warning restore 612, 618
         }

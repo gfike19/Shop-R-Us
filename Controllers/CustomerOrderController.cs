@@ -46,5 +46,22 @@ namespace Shop_R_Us.Controllers
             return Redirect("/Cart/ViewCart/");
         }
 
+        [HttpGet]
+        public IActionResult Checkout()
+        {
+            CustomerOrder cart = HttpContext.Session.GetObject<CustomerOrder>("cart");
+            CustomerOrder co = new CustomerOrder(cart.OrderTotal, cart.SubOrderTotal, cart.HighTaxTotal, cart.LowTaxTotal, cart.TaxTotal, cart.OrderProducts);
+            context.CustomerOrders.Add(co);
+            context.SaveChanges();
+            TempData["msg"] = "Order processed successfully!";
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Checkout (string fName, string lName, int ccnum)
+        {
+            return Redirect("/Cart/ViewCart");
+        }
+
     }
 }
