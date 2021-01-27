@@ -42,7 +42,16 @@ namespace Shop_R_Us.Controllers
 
             HttpContext.Session.Remove("cart");
             HttpContext.Session.SetObject("cart", cart);
-            // TODO #1 add new customer order to session and add item to cart, add functionality to update cart
+
+            string ids = "";
+
+            foreach(Product r in cart.OrderProducts)
+            {
+                ids += ("" + r.Id + ",");
+            }
+
+            Response.Cookies.Append("cart", ids);
+
             return Redirect("/Cart/ViewCart/");
         }
 
